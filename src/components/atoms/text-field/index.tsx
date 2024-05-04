@@ -90,7 +90,7 @@ export default function TextField({ startIcon, sx, ...props }: TextFiledProps) {
           {...props}
         />
         <Box
-          color="red"
+          color="grey"
           width="16px"
           height="16px"
           display="flex"

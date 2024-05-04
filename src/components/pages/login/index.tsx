@@ -13,7 +13,7 @@ export default function Login() {
       justifyContent="center"
       sx={{
         background:
-          "linear-gradient(-125deg, #ee6764, #3d3368, #162855, #101736)",
+          "linear-gradient(-125deg, #f07762, #87346d, #172a5b, #0c1232)",
         backgroundSize: "400% 400% ",
         animation: `${gradientEffect} 8s ease infinite`,
       }}
