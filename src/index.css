@@ -1,0 +1,20 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#root {
+  font-family: "Poppins", sans-serif;
+}
+.MuiBox-root,
+.MuiButtonBase-root {
+  font-family: "Poppins", sans-serif !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #d2d2d2 inset !important; /* Change #bfa2db to your desired background color */
+}
