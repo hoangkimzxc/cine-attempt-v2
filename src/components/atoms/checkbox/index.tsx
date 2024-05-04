@@ -19,7 +19,7 @@ export default function Checkbox({ label, sx, ...props }: CheckboxProps) {
             padding: "5px",
             color: "white", // default color
             "&.Mui-checked": {
-              color: "#4caf50", // color when checked
+              color: "#53fea9", // color when checked
             },
             ...sx,
           }}

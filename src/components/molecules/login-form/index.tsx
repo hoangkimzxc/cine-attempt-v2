@@ -71,14 +71,15 @@ export default function LoginForm() {
         width="100%"
       >
         <TextField
+          autoFocus
           type="text"
           placeholder="Email"
-          icon={<EmailOutlinedIcon />}
+          startIcon={<EmailOutlinedIcon />}
         />
         <TextField
           type="password"
           placeholder="Password"
-          icon={<LockOutlinedIcon />}
+          startIcon={<LockOutlinedIcon />}
         />
       </Box>
       <Button
