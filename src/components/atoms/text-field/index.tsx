@@ -2,7 +2,6 @@ import {
   Box,
   TextField as MuiTextField,
   TextFieldProps as MuiTextFieldProps,
-  Typography,
 } from "@mui/material";
 
 export type TextFiledProps = {
