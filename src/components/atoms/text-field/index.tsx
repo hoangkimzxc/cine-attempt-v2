@@ -9,9 +9,15 @@ import { useState } from "react";
 
 export type TextFiledProps = {
   startIcon: React.ReactElement;
+  breathingColor?: string;
 } & Omit<MuiTextFieldProps, "">;
 
-export default function TextField({ startIcon, sx, ...props }: TextFiledProps) {
+export default function TextField({
+  startIcon,
+  breathingColor,
+  sx,
+  ...props
+}: TextFiledProps) {
   const [value, setValue] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,11 +38,13 @@ export default function TextField({ startIcon, sx, ...props }: TextFiledProps) {
       sx={{
         // Adding focus-within to change the icon color when the TextField is focused
         "&:focus-within": {
-          border: "2px solid #53fea9",
-          animation: `${breathingEffect} 2s infinite ease-in-out`,
+          border: `2px solid ${breathingColor}`,
+          animation: `${breathingEffect(
+            breathingColor
+          )} 2s infinite ease-in-out`,
           "& > div:first-of-type": {
             // Targets the first Box that contains the icon
-            color: "#53fea9", // Change to the desired color on focus
+            color: breathingColor, // Change to the desired color on focus
           },
         },
         ...sx,
@@ -89,16 +97,18 @@ export default function TextField({ startIcon, sx, ...props }: TextFiledProps) {
           }}
           {...props}
         />
-        <Box
-          color="grey"
-          width="16px"
-          height="16px"
-          display="flex"
-          alignItems="center"
-          sx={{ "&:hover": { cursor: "pointer" } }}
-        >
-          {value && <CancelIcon fontSize="inherit" onClick={handleClear} />}
-        </Box>
+        {value && (
+          <Box
+            color="grey"
+            width="16px"
+            height="16px"
+            display="flex"
+            alignItems="center"
+            sx={{ "&:hover": { cursor: "pointer" } }}
+          >
+            <CancelIcon fontSize="inherit" onClick={handleClear} />
+          </Box>
+        )}
       </Box>
     </Box>
   );

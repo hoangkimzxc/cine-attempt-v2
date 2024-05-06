@@ -1,14 +1,14 @@
 import TextField from "@components/atoms/text-field";
 import * as React from "react";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import PersonIcon from "@mui/icons-material/Person";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import EnhancedEncryptionIcon from "@mui/icons-material/EnhancedEncryption";
 import { Box, Typography } from "@mui/material";
 import Button from "@components/atoms/button";
 import Checkbox from "@components/atoms/checkbox";
 import { useNavigate } from "react-router-dom";
 
-export default function LoginForm() {
+export default function RegisterForm() {
   const navigate = useNavigate();
   return (
     <Box
@@ -60,7 +60,7 @@ export default function LoginForm() {
             },
           }}
         >
-          <PersonIcon />
+          <AppRegistrationIcon />
         </Box>
       </Box>
       <Box
@@ -73,15 +73,15 @@ export default function LoginForm() {
         <TextField
           autoFocus
           type="text"
-          placeholder="Email"
-          startIcon={<EmailOutlinedIcon />}
-          breathingColor="#53fea9"
+          placeholder="Create new email"
+          startIcon={<AlternateEmailIcon />}
+          breathingColor="#f3fe53"
         />
         <TextField
           type="password"
-          placeholder="Password"
-          startIcon={<LockOutlinedIcon />}
-          breathingColor="#53fea9"
+          placeholder="Create new password"
+          startIcon={<EnhancedEncryptionIcon />}
+          breathingColor="#f3fe53"
         />
       </Box>
       <Button
@@ -95,7 +95,7 @@ export default function LoginForm() {
         }}
       >
         <Typography fontSize="16px" fontWeight="600">
-          LOGIN
+          Create new account
         </Typography>
       </Button>
       <Box
@@ -117,9 +117,9 @@ export default function LoginForm() {
               cursor: "pointer",
             },
           }}
-          onClick={() => navigate("/register")}
+          onClick={() => navigate("/login")}
         >
-          Don't have an account?
+          Already have an account?
         </Typography>
       </Box>
       <Box height="2px" width="100%" borderTop="2px solid #d2d2d2"></Box>
