@@ -7,9 +7,23 @@ import { Box, Typography } from "@mui/material";
 import Button from "@components/atoms/button";
 import Checkbox from "@components/atoms/checkbox";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schema } from "@/utils/validationSchema";
 
 export default function LoginForm() {
   const navigate = useNavigate();
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    resolver: yupResolver(schema),
+  });
+
+  const handleFormSubmit = async (formValues: any) => {
+    console.log(formValues);
+  };
   return (
     <Box
       display="flex"
@@ -72,12 +86,16 @@ export default function LoginForm() {
       >
         <TextField
           autoFocus
+          control={control}
+          name="email"
           type="text"
           placeholder="Email"
           startIcon={<EmailOutlinedIcon />}
           breathingColor="#53fea9"
         />
         <TextField
+          control={control}
+          name="password"
           type="password"
           placeholder="Password"
           startIcon={<LockOutlinedIcon />}
@@ -85,6 +103,7 @@ export default function LoginForm() {
         />
       </Box>
       <Button
+        onClick={handleSubmit(handleFormSubmit)}
         sx={{
           bgcolor: "#ee3069",
           color: "white",

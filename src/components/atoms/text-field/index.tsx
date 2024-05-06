@@ -1,32 +1,45 @@
 import { breathingEffect } from "@/utils/animation";
 import {
+  Tooltip,
   Box,
   TextField as MuiTextField,
   TextFieldProps as MuiTextFieldProps,
 } from "@mui/material";
-import CancelIcon from "@mui/icons-material/Cancel";
-import { useState } from "react";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { useEffect, useState } from "react";
+import { Control, FieldValues, useController } from "react-hook-form";
 
 export type TextFiledProps = {
   startIcon: React.ReactElement;
   breathingColor?: string;
-} & Omit<MuiTextFieldProps, "">;
+  control?: Control<FieldValues>;
+  name?: string;
+} & Omit<MuiTextFieldProps, "name">;
 
 export default function TextField({
   startIcon,
   breathingColor,
+  control,
+  name,
+  type,
   sx,
   ...props
 }: TextFiledProps) {
-  const [value, setValue] = useState("");
+  const {
+    field: { value, onChange, onBlur, ref },
+    fieldState: { invalid, error },
+  } = useController({ name, control });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
   };
 
-  const handleClear = () => {
-    setValue(""); // Clears the input field
-  };
+  // Determine the color based on validation state
+  const effectiveBreathingColor =
+    invalid || !!error?.message ? "#DC143C" : breathingColor;
 
   return (
     <Box
@@ -38,13 +51,13 @@ export default function TextField({
       sx={{
         // Adding focus-within to change the icon color when the TextField is focused
         "&:focus-within": {
-          border: `2px solid ${breathingColor}`,
+          border: `2px solid ${effectiveBreathingColor}`,
           animation: `${breathingEffect(
-            breathingColor
+            effectiveBreathingColor
           )} 2s infinite ease-in-out`,
           "& > div:first-of-type": {
             // Targets the first Box that contains the icon
-            color: breathingColor, // Change to the desired color on focus
+            color: effectiveBreathingColor, // Change to the desired color on focus
           },
         },
         ...sx,
@@ -60,6 +73,7 @@ export default function TextField({
       >
         {startIcon}
       </Box>
+
       <Box
         bgcolor="#e0f2f1"
         width="100%"
@@ -68,10 +82,16 @@ export default function TextField({
         alignItems="center"
       >
         <MuiTextField
+          type={type === "password" && !showPassword ? "password" : "text"}
           value={value}
-          onChange={handleChange}
+          onChange={onChange}
+          onBlur={onBlur}
+          inputRef={ref}
+          error={invalid}
+          helperText={error?.message}
           sx={{
             width: "91%",
+            position: "relative",
             "& .MuiOutlinedInput-root": {
               "& fieldset": {
                 border: "none", // Removes the border
@@ -93,20 +113,35 @@ export default function TextField({
               borderRadius: "0px",
               fontFamily: "Poppins",
             },
+            ".MuiFormHelperText-root": {
+              color: "#fff !important",
+              padding: "4px 6px",
+              background: "#e74b4b",
+              position: "absolute",
+              top: "-1px",
+              right: "-30px",
+              borderRadius: "20px",
+            },
             ...sx,
           }}
           {...props}
         />
-        {value && (
+        {type === "password" && value && (
           <Box
             color="grey"
             width="16px"
             height="16px"
             display="flex"
             alignItems="center"
+            justifyContent="center"
             sx={{ "&:hover": { cursor: "pointer" } }}
+            onClick={handleTogglePasswordVisibility}
           >
-            <CancelIcon fontSize="inherit" onClick={handleClear} />
+            {showPassword ? (
+              <VisibilityIcon fontSize="inherit" />
+            ) : (
+              <VisibilityOffIcon fontSize="inherit" />
+            )}
           </Box>
         )}
       </Box>

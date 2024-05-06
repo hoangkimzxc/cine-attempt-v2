@@ -5,11 +5,26 @@ import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import EnhancedEncryptionIcon from "@mui/icons-material/EnhancedEncryption";
 import { Box, Typography } from "@mui/material";
 import Button from "@components/atoms/button";
-import Checkbox from "@components/atoms/checkbox";
 import { useNavigate } from "react-router-dom";
+import { schema } from "@/utils/validationSchema";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function RegisterForm() {
   const navigate = useNavigate();
+
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    resolver: yupResolver(schema),
+  });
+
+  const handleFormSubmit = async (formValues: any) => {
+    console.log(formValues);
+  };
+
   return (
     <Box
       display="flex"
@@ -71,6 +86,8 @@ export default function RegisterForm() {
         width="100%"
       >
         <TextField
+          control={control}
+          name="email"
           autoFocus
           type="text"
           placeholder="Create new email"
@@ -78,6 +95,8 @@ export default function RegisterForm() {
           breathingColor="#f3fe53"
         />
         <TextField
+          control={control}
+          name="password"
           type="password"
           placeholder="Create new password"
           startIcon={<EnhancedEncryptionIcon />}
@@ -85,6 +104,7 @@ export default function RegisterForm() {
         />
       </Box>
       <Button
+        onClick={handleSubmit(handleFormSubmit)}
         sx={{
           bgcolor: "#ee3069",
           color: "white",
@@ -101,12 +121,11 @@ export default function RegisterForm() {
       <Box
         display="flex"
         alignItems="center"
-        justifyContent="space-between"
+        justifyContent="center"
         width="100%"
         mt="25px"
         mb="20px"
       >
-        <Checkbox label="Remember me" />
         <Typography
           fontSize="12px"
           color="white"
@@ -119,7 +138,7 @@ export default function RegisterForm() {
           }}
           onClick={() => navigate("/login")}
         >
-          Already have an account?
+          Already have an account? Login?
         </Typography>
       </Box>
       <Box height="2px" width="100%" borderTop="2px solid #d2d2d2"></Box>
