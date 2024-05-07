@@ -1,14 +1,21 @@
+import { auth } from "@/firebase";
+import useAuthStore from "@/store/authStore";
+import { getFirebaseErrorMessage } from "@/utils/firebaseErrors";
+import { schema } from "@/utils/validationSchema";
+import Button from "@components/atoms/button";
 import TextField from "@components/atoms/text-field";
-import * as React from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import EnhancedEncryptionIcon from "@mui/icons-material/EnhancedEncryption";
-import { Box, Typography } from "@mui/material";
-import Button from "@components/atoms/button";
-import { useNavigate } from "react-router-dom";
-import { schema } from "@/utils/validationSchema";
+import { Box, CircularProgress, Typography } from "@mui/material";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function RegisterForm() {
   const navigate = useNavigate();
@@ -21,8 +28,41 @@ export default function RegisterForm() {
     resolver: yupResolver(schema),
   });
 
-  const handleFormSubmit = async (formValues: any) => {
-    console.log(formValues);
+  const { isLoading, setLoading } = useAuthStore();
+
+  const handleFormSubmit = async (formValues: {
+    email?: string;
+    password?: string;
+  }) => {
+    setLoading(true); // Start loading
+    try {
+      const { email, password } = formValues;
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      // Send verification email
+      await sendEmailVerification(userCredential.user)
+        .then(() => {
+          toast("Verification email sent. Please check your mailbox.", {
+            autoClose: 5000,
+          });
+        })
+        .catch((verificationError) => {
+          toast(getFirebaseErrorMessage(verificationError.code), {
+            autoClose: 5000,
+          });
+        });
+      navigate("/login"); // Redirect after successful registration
+    } catch (error) {
+      const errorCode = (error as any).code;
+      const errorMessage = getFirebaseErrorMessage(errorCode);
+      toast(errorMessage, { autoClose: 5000 });
+    } finally {
+      setLoading(false); // End loading
+    }
   };
 
   return (
@@ -105,18 +145,38 @@ export default function RegisterForm() {
       </Box>
       <Button
         onClick={handleSubmit(handleFormSubmit)}
+        disabled={isLoading}
         sx={{
+          position: "relative",
+
           bgcolor: "#ee3069",
-          color: "white",
           borderRadius: "5px",
           height: "38px",
           transition: "linear 0.1s",
           "&:hover": { backgroundColor: "#32b674" },
+          "&.Mui-disabled": {
+            bgcolor: "#1f8653",
+          },
         }}
       >
-        <Typography fontSize="16px" fontWeight="600">
+        <Typography
+          fontSize="16px"
+          fontWeight="600"
+          color={isLoading ? "#ccc" : "#fff"}
+        >
           Create new account
         </Typography>
+        {isLoading && (
+          <CircularProgress
+            size="20px"
+            sx={{
+              color: "#fbbf21",
+              opacity: 1,
+              position: "absolute",
+              right: "30px",
+            }}
+          />
+        )}
       </Button>
       <Box
         display="flex"

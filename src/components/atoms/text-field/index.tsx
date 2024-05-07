@@ -1,13 +1,12 @@
 import { breathingEffect } from "@/utils/animation";
 import {
-  Tooltip,
   Box,
   TextField as MuiTextField,
   TextFieldProps as MuiTextFieldProps,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Control, FieldValues, useController } from "react-hook-form";
 
 export type TextFiledProps = {
@@ -80,6 +79,10 @@ export default function TextField({
         height="100%"
         display="flex"
         alignItems="center"
+        sx={{
+          borderTopRightRadius: "3px",
+          borderBottomRightRadius: "3px",
+        }}
       >
         <MuiTextField
           type={type === "password" && !showPassword ? "password" : "text"}
@@ -88,7 +91,34 @@ export default function TextField({
           onBlur={onBlur}
           inputRef={ref}
           error={invalid}
-          helperText={error?.message}
+          helperText={
+            error?.message && (
+              <Box
+                position="absolute"
+                top="39px"
+                right="-26px"
+                zIndex="1"
+                bgcolor="#333333"
+                color="#F2F2F2 !important"
+                padding="4px 8px"
+                borderRadius="5px"
+              >
+                {error.message}
+                <Box
+                  position="absolute"
+                  bottom="100%"
+                  left="50%"
+                  ml="-8px"
+                  borderColor="transparent transparent #333333  transparent"
+                  sx={{
+                    content: '""',
+                    borderWidth: "8px",
+                    borderStyle: "solid",
+                  }}
+                ></Box>
+              </Box>
+            )
+          }
           sx={{
             width: "91%",
             position: "relative",
@@ -113,15 +143,7 @@ export default function TextField({
               borderRadius: "0px",
               fontFamily: "Poppins",
             },
-            ".MuiFormHelperText-root": {
-              color: "#fff !important",
-              padding: "4px 6px",
-              background: "#e74b4b",
-              position: "absolute",
-              top: "-1px",
-              right: "-30px",
-              borderRadius: "20px",
-            },
+
             ...sx,
           }}
           {...props}

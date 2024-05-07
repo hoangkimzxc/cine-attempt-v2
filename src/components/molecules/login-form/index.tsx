@@ -1,18 +1,23 @@
-import TextField from "@components/atoms/text-field";
-import * as React from "react";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import PersonIcon from "@mui/icons-material/Person";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Box, Typography } from "@mui/material";
+import { auth } from "@/firebase";
+import { getFirebaseErrorMessage } from "@/utils/firebaseErrors";
+import { schema } from "@/utils/validationSchema";
 import Button from "@components/atoms/button";
 import Checkbox from "@components/atoms/checkbox";
-import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import TextField from "@components/atoms/text-field";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { schema } from "@/utils/validationSchema";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import PersonIcon from "@mui/icons-material/Person";
+import { Box, CircularProgress, Typography } from "@mui/material";
+import useAuthStore from "@store/authStore";
+import { getIdToken, signInWithEmailAndPassword } from "firebase/auth";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function LoginForm() {
   const navigate = useNavigate();
+
   const { control, handleSubmit } = useForm({
     defaultValues: {
       email: "",
@@ -21,9 +26,41 @@ export default function LoginForm() {
     resolver: yupResolver(schema),
   });
 
-  const handleFormSubmit = async (formValues: any) => {
-    console.log(formValues);
+  const { setUser, isLoading, setLoading } = useAuthStore();
+
+  const handleFormSubmit = async (formValues: {
+    email?: string;
+    password?: string;
+  }) => {
+    setLoading(true);
+    try {
+      const { email, password } = formValues;
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      if (userCredential.user.emailVerified) {
+        setUser(userCredential.user);
+        getIdToken(userCredential.user).then((token) => {
+          localStorage.setItem("token", token); // Storing the token
+          navigate("/movie");
+        });
+      } else {
+        toast("Please verify your email before logging in.", {
+          autoClose: 5000,
+        });
+      }
+    } catch (error) {
+      const errorCode = (error as any).code;
+      const errorMessage = getFirebaseErrorMessage(errorCode);
+      toast(errorMessage, { autoClose: 5000 });
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
     <Box
       display="flex"
@@ -104,18 +141,38 @@ export default function LoginForm() {
       </Box>
       <Button
         onClick={handleSubmit(handleFormSubmit)}
+        disabled={isLoading}
         sx={{
+          position: "relative",
+
           bgcolor: "#ee3069",
-          color: "white",
           borderRadius: "5px",
           height: "38px",
           transition: "linear 0.1s",
           "&:hover": { backgroundColor: "#32b674" },
+          "&.Mui-disabled": {
+            bgcolor: "#1f8653",
+          },
         }}
       >
-        <Typography fontSize="16px" fontWeight="600">
+        <Typography
+          fontSize="16px"
+          fontWeight="600"
+          color={isLoading ? "#ccc" : "#fff"}
+        >
           LOGIN
         </Typography>
+        {isLoading && (
+          <CircularProgress
+            size="20px"
+            sx={{
+              color: "#fbbf21",
+              opacity: 1,
+              position: "absolute",
+              right: "30px",
+            }}
+          />
+        )}
       </Button>
       <Box
         display="flex"
