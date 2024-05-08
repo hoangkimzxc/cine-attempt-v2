@@ -1,4 +1,4 @@
-export function getFirebaseErrorMessage(errorCode: string) {
+export function getFirebaseErrorMessage(errorCode: string): string {
   switch (errorCode) {
     case "auth/invalid-email":
       return "Invalid email format. Please check your email address.";

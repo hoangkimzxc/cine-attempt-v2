@@ -20,7 +20,7 @@ const Loader: React.FC = () => {
       background: "#00ff0a",
       boxShadow:
         "0 0 10px #00ff0a, 0 0 20px #00ff0a, 0 0 40px #00ff0a, 0 0 60px #00ff0a, 0 0 80px #00ff0a, 0 0 100px #00ff0a",
-      animation: "animateDot 2s linear infinite",
+      animation: "animateDot 0.5s linear infinite",
       animationDelay: `${0.1 * i}s`,
     },
   });
