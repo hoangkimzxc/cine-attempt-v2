@@ -7,7 +7,8 @@ interface Movie {
   _id: string;
   name: string;
   content: string;
-  poster?: string; // Assuming poster might be an optional property
+  poster_url?: string; // Assuming poster might be an optional property
+  thumb_url?: string; // Assuming poster might be an optional property
 }
 
 interface MovieState {
@@ -41,13 +42,17 @@ const useMovieStore = create<MovieStore>((set) => ({
 
             return {
               _id: movie._id,
-              name: movie.name,
-              poster: movie.poster_url,
+              origin_name: movie.origin_name,
+              poster_url: movie.poster_url,
+              thumb_url: movie.thumb_url,
               content: contentResponse.data.movie.content, // Assuming 'content' is the property you need
             };
           } catch (error) {
             console.error("Failed to fetch content for:", movie.name, error);
-            return { name: movie.name, content: "Failed to load content" }; // Handle errors individually
+            return {
+              name: movie.origin_name,
+              content: "Failed to load content",
+            }; // Handle errors individually
           }
         })
       );
