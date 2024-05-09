@@ -7,7 +7,7 @@ export type ButtonProps = {} & Omit<MuiButtonProps, "">;
 
 export default function Button({ children, sx, ...props }: ButtonProps) {
   return (
-    <MuiButton fullWidth sx={{ ...sx }} {...props}>
+    <MuiButton fullWidth sx={{ minWidth: "fit-content", ...sx }} {...props}>
       {children}
     </MuiButton>
   );

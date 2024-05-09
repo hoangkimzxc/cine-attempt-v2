@@ -35,7 +35,7 @@ function MovieBanner() {
           displayedMoviesRef.current = [];
         }
       }
-    }, 3000);
+    }, 5000);
 
     return () => clearInterval(intervalRef.current);
   }, [movies]);
