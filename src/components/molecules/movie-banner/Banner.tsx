@@ -1,8 +1,8 @@
 import { removeHTMLArtifacts, truncateText } from "@/utils/helpers";
 import Button from "@components/atoms/button";
 import { Box, Typography } from "@mui/material";
-import React from "react";
-
+import React, { useState } from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 export interface BannerProps {
   title: string;
   imgSrc: string;
@@ -10,6 +10,11 @@ export interface BannerProps {
 }
 
 export function Banner({ title, imgSrc, description }: BannerProps) {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  const handleImageLoaded = () => {
+    setImageLoaded(true);
+  };
   return (
     <>
       <Box
@@ -75,12 +80,19 @@ export function Banner({ title, imgSrc, description }: BannerProps) {
       <Box
         width="100wh"
         height="100vh"
-        sx={{ objectFit: "cover", backgroundPosition: "center" }}
+        sx={{
+          transition: imageLoaded ? "opacity 0.5s ease-in" : "none",
+          opacity: imageLoaded ? 1 : 0,
+        }}
       >
-        <img
+        <LazyLoadImage
+          afterLoad={handleImageLoaded}
+          threshold={100}
+          effect="blur"
           src={`https://img.ophim.live/uploads/movies/${imgSrc}`}
           width="100%"
           height="100%"
+          style={{ objectFit: "cover", backgroundPosition: "center" }}
         />
       </Box>
       <Box

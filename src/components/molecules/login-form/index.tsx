@@ -169,7 +169,7 @@ export default function LoginForm() {
               color: "#fbbf21",
               opacity: 1,
               position: "absolute",
-              right: "30px",
+              right: "100px",
             }}
           />
         )}
