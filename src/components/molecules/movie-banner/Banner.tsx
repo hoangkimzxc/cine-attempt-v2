@@ -23,7 +23,11 @@ export function Banner({ title, imgSrc, description }: BannerProps) {
         top="30%"
         left="30px"
         zIndex={3}
-        sx={{ textShadow: "rgb(51, 51, 51) 1px 1px" }}
+        sx={{
+          textShadow: "rgb(51, 51, 51) 1px 1px",
+          transition: imageLoaded ? "opacity 0.2s ease-in" : "none",
+          opacity: imageLoaded ? 1 : 0,
+        }}
       >
         <Typography fontWeight={600} fontSize={64} width="60%" lineHeight={1.1}>
           {truncateText(title, 38)}
@@ -81,13 +85,12 @@ export function Banner({ title, imgSrc, description }: BannerProps) {
         width="100wh"
         height="100vh"
         sx={{
-          transition: imageLoaded ? "opacity 0.5s ease-in" : "none",
+          transition: imageLoaded ? "opacity 0.2s ease-in" : "none",
           opacity: imageLoaded ? 1 : 0,
         }}
       >
         <LazyLoadImage
-          afterLoad={handleImageLoaded}
-          threshold={100}
+          onLoad={handleImageLoaded}
           effect="blur"
           src={`https://img.ophim.live/uploads/movies/${imgSrc}`}
           width="100%"

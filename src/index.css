@@ -5,6 +5,7 @@
   font-family: "Poppins", sans-serif !important;
 }
 
+/* Bg auto filter browser */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -12,6 +13,7 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px #e0f2f1 inset; /* Change #bfa2db to your desired background color */
 }
 
+/* scroll bar custom */
 *::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
   background-color: rgba(44, 67, 80, 0.5);
