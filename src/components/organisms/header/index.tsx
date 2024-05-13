@@ -3,9 +3,10 @@ import MovieFilterIcon from "@mui/icons-material/MovieFilter";
 import { Box, Typography } from "@mui/material";
 import Button from "@components/atoms/button";
 import { Chip } from "@components/atoms/chip";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Header() {
+  const navigate = useNavigate();
   const [showHeader, setShowHeader] = useState<boolean>(false);
 
   const transitionHeader = () => {
@@ -85,8 +86,12 @@ export default function Header() {
         </NavLink>
       </Box>
       <Box display="flex" alignItems="center" gap="4px">
-        <Button variant="outlined">LOGIN</Button>
-        <Button variant="outlined">REG</Button>
+        <Button variant="outlined" onClick={() => navigate("/login")}>
+          LOGIN
+        </Button>
+        <Button variant="outlined" onClick={() => navigate("/register")}>
+          REGISTER
+        </Button>
       </Box>
     </Box>
   );

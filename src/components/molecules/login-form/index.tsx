@@ -180,7 +180,7 @@ export default function LoginForm() {
         justifyContent="space-between"
         width="100%"
         mt="25px"
-        mb="20px"
+        mb="15px"
       >
         <Checkbox label="Remember me" />
         <Typography
@@ -197,6 +197,42 @@ export default function LoginForm() {
         >
           Don't have an account?
         </Typography>
+      </Box>
+      <Box mb="25px">
+        <Button
+          onClick={() => navigate("/movie")}
+          disabled={isLoading}
+          sx={{
+            position: "relative",
+            bgcolor: "#2384d3",
+            borderRadius: "5px",
+            height: "38px",
+            transition: "linear 0.1s",
+            "&:hover": { backgroundColor: "#162772" },
+            "&.Mui-disabled": {
+              bgcolor: "#1f8653",
+            },
+          }}
+        >
+          <Typography
+            fontSize="16px"
+            fontWeight="600"
+            color={isLoading ? "#ccc" : "#fff"}
+          >
+            Watch now!
+          </Typography>
+          {isLoading && (
+            <CircularProgress
+              size="20px"
+              sx={{
+                color: "#fbbf21",
+                opacity: 1,
+                position: "absolute",
+                right: "100px",
+              }}
+            />
+          )}
+        </Button>
       </Box>
       <Box height="2px" width="100%" borderTop="2px solid #d2d2d2"></Box>
     </Box>
