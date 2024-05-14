@@ -1,14 +1,13 @@
-import axiosOphim from "@/api/axiosOphim";
-import ophimApi from "@/api/ophimApi";
+import tmdbApi from "@/api/TMDB/TMDBApi";
 import { create } from "zustand";
 
 // Define interfaces for the state and actions
-interface Movie {
-  _id: string;
-  name: string;
-  content: string;
-  poster_url?: string; // Assuming poster might be an optional property
-  thumb_url?: string; // Assuming poster might be an optional property
+export interface Movie {
+  id: string;
+  original_title: string;
+  title: string;
+  overview: string;
+  backdrop_path?: string;
 }
 
 interface MovieState {
@@ -18,7 +17,7 @@ interface MovieState {
 }
 
 interface MovieActions {
-  fetchMovies: () => Promise<void>;
+  fetchMoviesBanner: () => Promise<void>;
 }
 
 // Combine state and actions into the store type
@@ -28,35 +27,11 @@ const useMovieStore = create<MovieStore>((set) => ({
   movies: [],
   loading: false,
   error: null,
-  fetchMovies: async () => {
+  fetchMoviesBanner: async () => {
     set({ loading: true, error: null });
     try {
-      const response = await ophimApi.getMovieList();
-      const moviesWithSlugs = response.data.items;
-
-      // Fetch additional content for each movie
-      const moviesWithDetails = await Promise.all(
-        moviesWithSlugs.map(async (movie: any) => {
-          try {
-            const contentResponse = await axiosOphim.get(`/phim/${movie.slug}`);
-
-            return {
-              _id: movie._id,
-              origin_name: movie.origin_name,
-              poster_url: movie.poster_url,
-              thumb_url: movie.thumb_url,
-              content: contentResponse.data.movie.content, // Assuming 'content' is the property you need
-            };
-          } catch (error) {
-            console.error("Failed to fetch content for:", movie.name, error);
-            return {
-              name: movie.origin_name,
-              content: "Failed to load content",
-            }; // Handle errors individually
-          }
-        })
-      );
-      set({ movies: moviesWithDetails, loading: false });
+      const response = await tmdbApi.getMovieBanner();
+      set({ movies: response.data.results, loading: false });
     } catch (error) {
       set({ error: (error as Error).message, loading: false });
     }

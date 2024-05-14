@@ -30,7 +30,7 @@ export function Banner({ title, imgSrc, description }: BannerProps) {
         }}
       >
         <Typography fontWeight={600} fontSize={64} width="60%" lineHeight={1.1}>
-          {truncateText(title, 38)}
+          {title}
         </Typography>
         <Box display="flex" alignItems="center" gap="10px" mt="16px" mb="20px">
           <Button
@@ -77,8 +77,8 @@ export function Banner({ title, imgSrc, description }: BannerProps) {
             </Typography>
           </Button>
         </Box>
-        <Typography width="60%" fontSize={17}>
-          {truncateText(removeHTMLArtifacts(description), 285)}
+        <Typography width="50%" fontSize={17}>
+          {truncateText(removeHTMLArtifacts(description), 300)}
         </Typography>
       </Box>
       <Box
@@ -92,7 +92,7 @@ export function Banner({ title, imgSrc, description }: BannerProps) {
         <LazyLoadImage
           onLoad={handleImageLoaded}
           effect="blur"
-          src={`https://img.ophim.live/uploads/movies/${imgSrc}`}
+          src={`https://image.tmdb.org/t/p/original/${imgSrc}`}
           width="100%"
           height="100%"
           style={{ objectFit: "cover", backgroundPosition: "center" }}

@@ -1,17 +1,17 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import Loader from "@components/organisms/loader";
-import useMovieStore from "@store/movieStore";
+import useMovieStore, { Movie } from "@store/movieStore";
 import { Banner } from "./Banner";
 
 function MovieBanner() {
-  const { movies, loading, error, fetchMovies } = useMovieStore();
-  const [currentMovie, setCurrentMovie] = useState(null);
+  const { movies, loading, fetchMoviesBanner } = useMovieStore();
+  const [currentMovie, setCurrentMovie] = useState<Movie>(null);
   const displayedMoviesRef = useRef([]);
   const intervalRef = useRef(null);
 
   const fetchMoviesIfNeeded = useCallback(() => {
-    fetchMovies();
-  }, [fetchMovies]);
+    fetchMoviesBanner();
+  }, [fetchMoviesBanner]);
 
   useEffect(() => {
     fetchMoviesIfNeeded();
@@ -24,12 +24,12 @@ function MovieBanner() {
         do {
           nextMovie = movies[Math.floor(Math.random() * movies.length)];
         } while (
-          displayedMoviesRef.current.includes(nextMovie._id) &&
+          displayedMoviesRef.current.includes(nextMovie.id) &&
           displayedMoviesRef.current.length < movies.length
         );
 
         setCurrentMovie(nextMovie);
-        displayedMoviesRef.current.push(nextMovie._id);
+        displayedMoviesRef.current.push(nextMovie.id);
 
         if (displayedMoviesRef.current.length >= movies.length) {
           displayedMoviesRef.current = [];
@@ -41,14 +41,13 @@ function MovieBanner() {
   }, [movies]);
 
   if (loading) return <Loader />;
-  if (error) return <div>Error: {error}</div>;
 
   return currentMovie ? (
     <Banner
-      key={currentMovie._id}
-      title={currentMovie.origin_name}
-      description={currentMovie.content}
-      imgSrc={currentMovie.poster_url}
+      key={currentMovie.id}
+      title={currentMovie.original_title || currentMovie.title}
+      description={currentMovie.overview}
+      imgSrc={currentMovie.backdrop_path}
     />
   ) : null;
 }
