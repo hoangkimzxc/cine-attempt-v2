@@ -1,8 +1,6 @@
 import { removeHTMLArtifacts, truncateText } from "@/utils/helpers";
 import Button from "@components/atoms/button";
 import { Box, Typography } from "@mui/material";
-import React, { useState } from "react";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 export interface BannerProps {
   title: string;
   imgSrc: string;
@@ -10,25 +8,9 @@ export interface BannerProps {
 }
 
 export function Banner({ title, imgSrc, description }: BannerProps) {
-  const [imageLoaded, setImageLoaded] = useState(false);
-
-  const handleImageLoaded = () => {
-    setImageLoaded(true);
-  };
   return (
     <>
-      <Box
-        position="absolute"
-        color="white"
-        top="30%"
-        left="30px"
-        zIndex={3}
-        sx={{
-          textShadow: "rgb(51, 51, 51) 1px 1px",
-          transition: imageLoaded ? "opacity 0.2s ease-in" : "none",
-          opacity: imageLoaded ? 1 : 0,
-        }}
-      >
+      <Box position="absolute" color="white" top="30%" left="30px" zIndex={3}>
         <Typography fontWeight={600} fontSize={64} width="60%" lineHeight={1.1}>
           {title}
         </Typography>
@@ -81,17 +63,8 @@ export function Banner({ title, imgSrc, description }: BannerProps) {
           {truncateText(removeHTMLArtifacts(description), 300)}
         </Typography>
       </Box>
-      <Box
-        width="100wh"
-        height="100vh"
-        sx={{
-          transition: imageLoaded ? "opacity 0.2s ease-in" : "none",
-          opacity: imageLoaded ? 1 : 0,
-        }}
-      >
-        <LazyLoadImage
-          onLoad={handleImageLoaded}
-          effect="blur"
+      <Box width="100wh" height="100vh">
+        <img
           src={`https://image.tmdb.org/t/p/original/${imgSrc}`}
           width="100%"
           height="100%"

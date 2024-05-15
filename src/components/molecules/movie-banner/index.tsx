@@ -1,54 +1,40 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
 import Loader from "@components/organisms/loader";
-import useMovieStore, { Movie } from "@store/movieStore";
+import useMovieStore from "@store/movieStore";
+import { useEffect } from "react";
+import "swiper/css";
+import "swiper/css/autoplay";
+import "swiper/css/effect-fade";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectFade, Autoplay } from "swiper/modules";
 import { Banner } from "./Banner";
 
 function MovieBanner() {
-  const { movies, loading, fetchMoviesBanner } = useMovieStore();
-  const [currentMovie, setCurrentMovie] = useState<Movie>(null);
-  const displayedMoviesRef = useRef([]);
-  const intervalRef = useRef(null);
+  const { bannerMovies, loading, fetchMoviesBanner } = useMovieStore();
 
-  const fetchMoviesIfNeeded = useCallback(() => {
+  useEffect(() => {
     fetchMoviesBanner();
   }, [fetchMoviesBanner]);
 
-  useEffect(() => {
-    fetchMoviesIfNeeded();
-  }, [fetchMoviesIfNeeded]);
-
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      if (movies.length > 0) {
-        let nextMovie;
-        do {
-          nextMovie = movies[Math.floor(Math.random() * movies.length)];
-        } while (
-          displayedMoviesRef.current.includes(nextMovie.id) &&
-          displayedMoviesRef.current.length < movies.length
-        );
-
-        setCurrentMovie(nextMovie);
-        displayedMoviesRef.current.push(nextMovie.id);
-
-        if (displayedMoviesRef.current.length >= movies.length) {
-          displayedMoviesRef.current = [];
-        }
-      }
-    }, 5000);
-
-    return () => clearInterval(intervalRef.current);
-  }, [movies]);
-
   if (loading) return <Loader />;
 
-  return currentMovie ? (
-    <Banner
-      key={currentMovie.id}
-      title={currentMovie.original_title || currentMovie.title}
-      description={currentMovie.overview}
-      imgSrc={currentMovie.backdrop_path}
-    />
+  return bannerMovies ? (
+    <Swiper
+      slidesPerView={1}
+      autoplay={{ delay: 3000 }}
+      loop={true}
+      modules={[Autoplay, EffectFade]}
+      effect="fade"
+    >
+      {bannerMovies?.map((movie) => (
+        <SwiperSlide key={movie.id}>
+          <Banner
+            title={movie.original_title || movie.title || movie.original_name}
+            description={movie.overview}
+            imgSrc={movie.backdrop_path}
+          />
+        </SwiperSlide>
+      ))}
+    </Swiper>
   ) : null;
 }
 
