@@ -1,3 +1,4 @@
+import React, { useEffect, useRef } from "react";
 import { Box, Typography } from "@mui/material";
 import { Movie } from "@store/movieStore";
 import "swiper/css";
@@ -14,13 +15,32 @@ interface CarouselListProps {
 }
 
 function CarouselList({ movies, listTitle }: CarouselListProps) {
+  const swiperRef = useRef(null);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (swiperRef.current) {
+        const randomDirection = Math.random() < 0.5 ? "slideNext" : "slidePrev";
+        swiperRef.current.swiper[randomDirection]();
+      }
+    }, Math.random() * 2000 + 1000); // Random interval between 1-3 seconds
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <Box display="flex" flexDirection="column" gap="12px">
       <Typography color="white" fontSize={20} fontWeight={500}>
         {listTitle}
       </Typography>
       <Box>
-        <Swiper modules={[Navigation]} slidesPerView={6} navigation>
+        <Swiper
+          ref={swiperRef}
+          modules={[Navigation]}
+          spaceBetween={4}
+          slidesPerView={6}
+          navigation
+        >
           {movies?.map((movie) => (
             <SwiperSlide key={movie.id}>
               <CarouselItem
