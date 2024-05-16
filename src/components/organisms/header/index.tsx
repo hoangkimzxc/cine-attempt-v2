@@ -3,7 +3,7 @@ import MovieFilterIcon from "@mui/icons-material/MovieFilter";
 import { Box, Typography } from "@mui/material";
 import Button from "@components/atoms/button";
 import { Chip } from "@components/atoms/chip";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -42,12 +42,14 @@ export default function Header() {
         boxShadow: showHeader && `0px 10px 20px -10px rgba(255, 191, 71, 0.5)`,
       }}
     >
-      <Box display="flex" alignItems="center" color="#e11d48" gap="8px">
-        <MovieFilterIcon sx={{ fontSize: "40px" }} />
-        <Typography fontSize="36px" fontWeight={700}>
-          Cinematics
-        </Typography>
-      </Box>
+      <Link to="/movie">
+        <Box display="flex" alignItems="center" color="#e11d48" gap="8px">
+          <MovieFilterIcon sx={{ fontSize: "40px" }} />
+          <Typography fontSize="36px" fontWeight={700}>
+            Cinematics
+          </Typography>
+        </Box>
+      </Link>
       <Box
         display="flex"
         alignItems="center"
@@ -55,7 +57,6 @@ export default function Header() {
         sx={{
           a: {
             borderRadius: "8px",
-            textDecoration: "none",
             color: "#a1a0a7",
             "&:hover": {
               color: "white",

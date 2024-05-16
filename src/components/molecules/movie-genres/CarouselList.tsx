@@ -1,14 +1,12 @@
-import React, { useEffect, useRef } from "react";
 import { Box, Typography } from "@mui/material";
 import { Movie } from "@store/movieStore";
+import { useEffect, useRef } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CarouselItem from "./CarouselItem";
-import { breathingEffect } from "@/utils/animation";
+import { Link } from "react-router-dom";
 
 interface CarouselListProps {
   listTitle: string;
@@ -24,7 +22,7 @@ function CarouselList({ movies, listTitle }: CarouselListProps) {
         const randomDirection = Math.random() < 0.5 ? "slideNext" : "slidePrev";
         swiperRef.current.swiper[randomDirection]();
       }
-    }, Math.random() * 2000 + 3000); // Random interval between 1-5 seconds
+    }, Math.random() * 2000 + 2000); // Random interval between 1-4 seconds
 
     return () => clearInterval(intervalId);
   }, []);
@@ -46,15 +44,18 @@ function CarouselList({ movies, listTitle }: CarouselListProps) {
           spaceBetween={4}
           slidesPerView={5}
           navigation
+          loop={false}
         >
           {movies?.map((movie) => (
             <SwiperSlide key={movie.id}>
-              <CarouselItem
-                title={
-                  movie.original_title || movie.title || movie.original_name
-                }
-                imgSrc={movie.backdrop_path}
-              />
+              <Link to={`/movie/${movie?.id}`}>
+                <CarouselItem
+                  title={
+                    movie.original_title || movie.title || movie.original_name
+                  }
+                  imgSrc={movie.backdrop_path}
+                />
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>

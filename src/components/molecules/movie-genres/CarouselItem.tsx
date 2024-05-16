@@ -40,8 +40,6 @@ function CarouselItem({ title, imgSrc }: CarouselItemProps) {
       >
         <img
           src={`https://image.tmdb.org/t/p/original/${imgSrc}`}
-          width="100%"
-          height="100%"
           style={{
             position: "absolute",
             top: 0,
