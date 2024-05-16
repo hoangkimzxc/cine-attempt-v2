@@ -1,5 +1,4 @@
-import { Box, Typography } from "@mui/material";
-import React, { useEffect, useRef } from "react";
+import { Typography } from "@mui/material";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 

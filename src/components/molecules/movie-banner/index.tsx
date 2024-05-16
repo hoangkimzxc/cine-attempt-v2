@@ -28,6 +28,7 @@ function MovieBanner() {
       {bannerMovies?.map((movie) => (
         <SwiperSlide key={movie.id}>
           <Banner
+            id={movie.id}
             title={movie.original_title || movie.title || movie.original_name}
             description={movie.overview}
             imgSrc={movie.backdrop_path}

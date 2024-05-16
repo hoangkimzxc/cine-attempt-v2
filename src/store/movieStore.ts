@@ -3,7 +3,7 @@ import { create } from "zustand";
 
 // Define interfaces for the state and actions
 export interface Movie {
-  id: string;
+  id: number;
   original_name: string;
   original_title: string;
   title: string;
