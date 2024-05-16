@@ -8,6 +8,7 @@ import "swiper/css/scrollbar";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CarouselItem from "./CarouselItem";
+import { breathingEffect } from "@/utils/animation";
 
 interface CarouselListProps {
   listTitle: string;
@@ -23,16 +24,21 @@ function CarouselList({ movies, listTitle }: CarouselListProps) {
         const randomDirection = Math.random() < 0.5 ? "slideNext" : "slidePrev";
         swiperRef.current.swiper[randomDirection]();
       }
-    }, Math.random() * 2000 + 3000); // Random interval between 1-3 seconds
+    }, Math.random() * 2000 + 3000); // Random interval between 1-5 seconds
 
     return () => clearInterval(intervalId);
   }, []);
 
   return (
     <Box display="flex" flexDirection="column" gap="12px">
-      <Typography color="white" fontSize={20} fontWeight={500}>
-        {listTitle}
-      </Typography>
+      <Box display="flex" gap="6px" alignItems="center">
+        <Typography color="white" fontSize={20} fontWeight={500}>
+          {listTitle}
+        </Typography>
+        <Typography color="#3ef4d2" fontSize={14} fontWeight={400}>
+          See All
+        </Typography>
+      </Box>
       <Box>
         <Swiper
           ref={swiperRef}
