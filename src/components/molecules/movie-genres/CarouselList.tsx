@@ -23,7 +23,7 @@ function CarouselList({ movies, listTitle }: CarouselListProps) {
         const randomDirection = Math.random() < 0.5 ? "slideNext" : "slidePrev";
         swiperRef.current.swiper[randomDirection]();
       }
-    }, Math.random() * 2000 + 1000); // Random interval between 1-3 seconds
+    }, Math.random() * 2000 + 3000); // Random interval between 1-3 seconds
 
     return () => clearInterval(intervalId);
   }, []);
@@ -38,7 +38,7 @@ function CarouselList({ movies, listTitle }: CarouselListProps) {
           ref={swiperRef}
           modules={[Navigation]}
           spaceBetween={4}
-          slidesPerView={6}
+          slidesPerView={5}
           navigation
         >
           {movies?.map((movie) => (

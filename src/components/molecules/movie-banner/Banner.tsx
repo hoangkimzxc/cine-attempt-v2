@@ -1,6 +1,9 @@
 import { removeHTMLArtifacts, truncateText } from "@/utils/helpers";
 import Button from "@components/atoms/button";
 import { Box, Typography } from "@mui/material";
+import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+
 export interface BannerProps {
   title: string;
   imgSrc: string;
@@ -24,12 +27,16 @@ export function Banner({ title, imgSrc, description }: BannerProps) {
               padding: "8px 36px",
               width: "fit-content",
               transition: "transform 100ms",
+              display: "flex",
+              alignItems: "center",
+              gap: "4px",
               "&:hover": {
                 backgroundColor: "#e11d48",
                 transform: "translate(-2px) scale(1.1)",
               },
             }}
           >
+            <PlayCircleOutlineIcon />
             <Typography fontSize={18} fontWeight={500}>
               Play
             </Typography>
@@ -43,6 +50,9 @@ export function Banner({ title, imgSrc, description }: BannerProps) {
               width: "fit-content",
               padding: "8px 16px",
               transition: "transform 100ms",
+              display: "flex",
+              alignItems: "center",
+              gap: "4px",
               "&:hover": {
                 backgroundColor: "#e6e6e6",
                 color: "black",
@@ -50,6 +60,7 @@ export function Banner({ title, imgSrc, description }: BannerProps) {
               },
             }}
           >
+            <InfoOutlinedIcon />
             <Typography
               fontSize={18}
               textTransform="capitalize"
