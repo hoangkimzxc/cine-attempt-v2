@@ -21,9 +21,9 @@ function MovieBanner() {
     <Swiper
       slidesPerView={1}
       autoplay={{ delay: 3000 }}
-      loop={true}
       modules={[Autoplay, EffectFade]}
       effect="fade"
+      allowTouchMove={false}
     >
       {bannerMovies?.map((movie) => (
         <SwiperSlide key={movie.id}>
