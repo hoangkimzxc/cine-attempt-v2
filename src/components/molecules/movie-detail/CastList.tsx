@@ -1,9 +1,10 @@
 import { Typography } from "@mui/material";
+import { MovieCredit } from "@store/movieDetailStore";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 interface CastListProps {
-  credits: any[];
+  credits: MovieCredit[];
 }
 
 interface CastProps {
@@ -13,18 +14,16 @@ interface CastProps {
 
 function CastList({ credits }: CastListProps) {
   return (
-    <>
-      <Swiper spaceBetween={7} slidesPerView={6}>
-        {credits?.map((credit) => (
-          <SwiperSlide key={credit.cast_id}>
-            <Cast
-              name={credit.name || credit.original_name}
-              imgSrc={credit.profile_path}
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </>
+    <Swiper spaceBetween={7} slidesPerView={6}>
+      {credits?.map((credit) => (
+        <SwiperSlide key={credit.cast_id}>
+          <Cast
+            name={credit.name || credit.original_name}
+            imgSrc={credit.profile_path}
+          />
+        </SwiperSlide>
+      ))}
+    </Swiper>
   );
 }
 

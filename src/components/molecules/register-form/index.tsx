@@ -148,7 +148,6 @@ export default function RegisterForm() {
         disabled={isLoading}
         sx={{
           position: "relative",
-
           bgcolor: "#ee3069",
           borderRadius: "5px",
           height: "38px",

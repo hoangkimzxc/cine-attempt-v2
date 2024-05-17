@@ -9,7 +9,7 @@ export interface MovieDetail extends Movie {
   poster_path: string;
 }
 
-interface MovieCredit {
+export interface MovieCredit {
   cast_id: number;
   character: string;
   name: string;
@@ -17,14 +17,17 @@ interface MovieCredit {
   profile_path?: string;
 }
 
-interface MovieVideos {
+export interface MovieVideo {
   key: string;
+  id: string;
+  name: string;
+  type: string;
 }
 
 interface MovieDetailState {
   movieDetail: MovieDetail;
   movieCredits: MovieCredit[];
-  movieVideos: MovieVideos[];
+  movieVideos: MovieVideo[];
   movieRecommendations: Movie[];
   movieReviews: any[];
   loading: boolean;
