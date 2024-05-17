@@ -26,6 +26,10 @@ const tmdbApi = {
     const url = tmdb_requests.fetchRomanceMovies;
     return axiosTMDB.get(url);
   },
+  getFantasyMovies() {
+    const url = tmdb_requests.fetchFantasyMovies;
+    return axiosTMDB.get(url);
+  },
   getTVBanner() {
     const url = tmdb_requests.fetchMysteryTV;
     return axiosTMDB.get(url);

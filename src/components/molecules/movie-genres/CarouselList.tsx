@@ -42,7 +42,7 @@ function CarouselList({ movies, listTitle }: CarouselListProps) {
           ref={swiperRef}
           modules={[Navigation]}
           spaceBetween={4}
-          slidesPerView={5}
+          slidesPerView={6.5}
           navigation
           loop={false}
         >

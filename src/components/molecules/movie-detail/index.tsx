@@ -26,11 +26,11 @@ function MovieDetail() {
     fetchMovieRecommendations,
     fetchMovieReviews,
   } = useMovieDetailStore();
-  console.log("movieDetail", movieDetail);
-  console.log("movieCredits", movieCredits);
-  console.log("movieVideos", movieVideos);
-  console.log("movieRecommendations", movieRecommendations);
-  console.log("movieReviews", movieReviews);
+  // console.log("movieDetail", movieDetail);
+  // console.log("movieCredits", movieCredits);
+  // console.log("movieVideos", movieVideos);
+  // console.log("movieRecommendations", movieRecommendations);
+  // console.log("movieReviews", movieReviews);
   useEffect(() => {
     fetchMovieDetail(movie_id);
     fetchMovieVideos(movie_id);
@@ -56,7 +56,12 @@ function MovieDetail() {
     return <Loader />;
   return (
     <Box padding="100px">
-      <Box display="flex" alignItems="center" gap="40px">
+      <Box
+        display="flex"
+        alignItems="center"
+        gap="40px"
+        justifyContent="center"
+      >
         <Box width="380px" height="580px">
           <Poster imgSrc={movieDetail.poster_path} />
         </Box>

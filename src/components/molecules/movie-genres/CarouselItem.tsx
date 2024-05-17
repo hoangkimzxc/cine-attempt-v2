@@ -1,4 +1,4 @@
-import { truncateText } from "@/utils/helpers";
+import { renderImage, truncateText } from "@/utils/helpers";
 import { Box, Typography } from "@mui/material";
 import React from "react";
 
@@ -28,10 +28,10 @@ function CarouselItem({ title, imgSrc }: CarouselItemProps) {
         sx={{
           borderRadius: "10px",
           overflow: "hidden",
+          height: "135px",
           boxShadow:
             "0 10px 15px -3px rgba(244, 63, 94, 0.5), 0 4px 6px -2px rgba(244, 63, 94, 0.5)",
           position: "relative",
-          paddingBottom: "56.25%",
           "&:hover": {
             boxShadow:
               "0 10px 15px -3px rgba(62,244,210, 0.5), 0 4px 6px -2px rgba(62,244,210, 0.5)",
@@ -39,7 +39,7 @@ function CarouselItem({ title, imgSrc }: CarouselItemProps) {
         }}
       >
         <img
-          src={`https://image.tmdb.org/t/p/original/${imgSrc}`}
+          src={renderImage(imgSrc)}
           style={{
             position: "absolute",
             top: 0,

@@ -11,11 +11,13 @@ function MovieGenres() {
     horrorMovies,
     crimeMovies,
     romanceMovies,
+    fantasyMovies,
     fetchActionMovies,
     fetchAnimationMovies,
     fetchHorrorMovies,
     fetchCrimeMovies,
     fetchRomanceMovies,
+    fetchFantasyMovies,
     loading,
   } = useMovieStore();
 
@@ -25,12 +27,14 @@ function MovieGenres() {
     fetchHorrorMovies();
     fetchCrimeMovies();
     fetchRomanceMovies();
+    fetchFantasyMovies();
   }, [
     fetchActionMovies,
     fetchAnimationMovies,
     fetchHorrorMovies,
     fetchCrimeMovies,
     fetchRomanceMovies,
+    fetchFantasyMovies,
   ]);
 
   if (loading) return <Loader />;
@@ -42,6 +46,7 @@ function MovieGenres() {
       <CarouselList listTitle="Horrors" movies={horrorMovies} />
       <CarouselList listTitle="Crimes" movies={crimeMovies} />
       <CarouselList listTitle="Romances" movies={romanceMovies} />
+      <CarouselList listTitle="Fantasies" movies={fantasyMovies} />
     </Box>
   );
 }

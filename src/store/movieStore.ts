@@ -19,6 +19,7 @@ interface MovieState {
   horrorMovies: Movie[];
   crimeMovies: Movie[];
   romanceMovies: Movie[];
+  fantasyMovies: Movie[];
   loading: boolean;
   error: string | null;
 }
@@ -30,6 +31,7 @@ interface MovieActions {
   fetchHorrorMovies: () => Promise<void>;
   fetchCrimeMovies: () => Promise<void>;
   fetchRomanceMovies: () => Promise<void>;
+  fetchFantasyMovies: () => Promise<void>;
 }
 
 // Combine state and actions into the store type
@@ -42,6 +44,7 @@ const useMovieStore = create<MovieStore>((set) => ({
   horrorMovies: [],
   crimeMovies: [],
   romanceMovies: [],
+  fantasyMovies: [],
   loading: false,
   error: null,
   fetchMoviesBanner: async () => {
@@ -94,6 +97,15 @@ const useMovieStore = create<MovieStore>((set) => ({
     try {
       const response = await tmdbApi.getRomanceMovies();
       set({ romanceMovies: response.data.results, loading: false });
+    } catch (error) {
+      set({ error: (error as Error).message, loading: false });
+    }
+  },
+  fetchFantasyMovies: async () => {
+    set({ loading: true, error: null });
+    try {
+      const response = await tmdbApi.getFantasyMovies();
+      set({ fantasyMovies: response.data.results, loading: false });
     } catch (error) {
       set({ error: (error as Error).message, loading: false });
     }

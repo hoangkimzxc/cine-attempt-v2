@@ -1,4 +1,8 @@
-import { removeHTMLArtifacts, truncateText } from "@/utils/helpers";
+import {
+  removeHTMLArtifacts,
+  renderImage,
+  truncateText,
+} from "@/utils/helpers";
 import Button from "@components/atoms/button";
 import { Box, Typography } from "@mui/material";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
@@ -82,7 +86,7 @@ export function Banner({ title, imgSrc, description, id }: BannerProps) {
       </Box>
       <Box width="100wh" height="100vh">
         <img
-          src={`https://image.tmdb.org/t/p/original/${imgSrc}`}
+          src={renderImage(imgSrc)}
           width="100%"
           height="100%"
           style={{ objectFit: "cover", backgroundPosition: "center" }}

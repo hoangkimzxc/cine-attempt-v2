@@ -36,16 +36,18 @@ export default function Header() {
       zIndex="4"
       sx={{
         transition:
-          "background-color ease-in 0.3s, border-color ease-in 0.3s, box-shadow ease-in 0.3s",
-        borderBottom: showHeader && 2, // sets the border bottom width
+          "background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease",
+        borderBottom: showHeader ? 2 : 0, // sets the border bottom width
         borderColor: "#ea580c", // you can use theme palette or specific color
-        boxShadow: showHeader && `0px 10px 20px -10px rgba(255, 191, 71, 0.5)`,
+        boxShadow: showHeader
+          ? `0px 10px 20px -10px rgba(255, 191, 71, 0.5)`
+          : "none",
       }}
     >
       <Link to="/movie">
         <Box display="flex" alignItems="center" color="#e11d48" gap="8px">
           <MovieFilterIcon sx={{ fontSize: "40px" }} />
-          <Typography fontSize="36px" fontWeight={700}>
+          <Typography fontSize="36px" fontWeight={600}>
             Cinematics
           </Typography>
         </Box>
