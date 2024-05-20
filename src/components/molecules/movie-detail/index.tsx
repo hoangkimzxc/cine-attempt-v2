@@ -9,6 +9,7 @@ import Poster from "./Poster";
 import TrailerList from "./TrailerList";
 import Button from "@components/atoms/button";
 import RefMovies from "./RefMovies";
+import BackgroundVideo from "./BackgroundVideo";
 
 function MovieDetail() {
   const { movie_id } = useParams();
@@ -26,11 +27,6 @@ function MovieDetail() {
     fetchMovieRecommendations,
     fetchMovieReviews,
   } = useMovieDetailStore();
-  // console.log("movieDetail", movieDetail);
-  // console.log("movieCredits", movieCredits);
-  // console.log("movieVideos", movieVideos);
-  // console.log("movieRecommendations", movieRecommendations);
-  // console.log("movieReviews", movieReviews);
   useEffect(() => {
     fetchMovieDetail(movie_id);
     fetchMovieVideos(movie_id);
@@ -55,13 +51,18 @@ function MovieDetail() {
   )
     return <Loader />;
   return (
-    <Box padding="100px">
+    <Box padding="100px" bgcolor={!movieVideos[0]?.key && "#111"}>
       <Box
         display="flex"
         alignItems="center"
         gap="40px"
         justifyContent="center"
       >
+        <Box>
+          {movieVideos && movieVideos.length > 0 && (
+            <BackgroundVideo backgroundVideos={movieVideos} />
+          )}
+        </Box>
         <Box width="380px" height="580px">
           <Poster imgSrc={movieDetail.poster_path} />
         </Box>
@@ -82,7 +83,9 @@ function MovieDetail() {
         </Box>
       </Box>
       <Box my="60px">
-        <TrailerList trailerVideos={movieVideos} />
+        {movieVideos && movieVideos.length > 0 && (
+          <TrailerList trailerVideos={movieVideos} />
+        )}
       </Box>
       <Box display="flex" justifyContent="center">
         <Button
@@ -107,6 +110,19 @@ function MovieDetail() {
       <Box mt="40px">
         <RefMovies refMovies={movieRecommendations} />
       </Box>
+
+      <Box
+        sx={{
+          height: "100%",
+          backgroundImage:
+            "linear-gradient(180deg,transparent,rgba(27, 27, 27, 0.61),#000)",
+          position: "fixed",
+          width: "100%",
+          top: "0",
+          left: "0",
+          zIndex: "-1",
+        }}
+      ></Box>
     </Box>
   );
 }

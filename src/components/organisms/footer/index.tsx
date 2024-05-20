@@ -4,7 +4,7 @@ import { Facebook, Instagram, Twitter, YouTube } from "@mui/icons-material";
 
 function Footer() {
   return (
-    <Box sx={{ color: "#ccc", padding: "20px 100px" }}>
+    <Box bgcolor="#111" sx={{ color: "#ccc", padding: "20px 100px" }}>
       <Box
         sx={{
           display: "grid",

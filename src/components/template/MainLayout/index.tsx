@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 
 function MainLayout() {
   return (
-    <Box bgcolor="#111111">
+    <Box>
       <Header />
       <Outlet />
       <Footer />
