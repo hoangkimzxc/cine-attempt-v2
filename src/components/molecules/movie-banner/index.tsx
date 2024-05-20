@@ -1,6 +1,6 @@
 import Loader from "@components/organisms/loader";
 import useMovieStore from "@store/movieStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "swiper/css";
 import "swiper/css/autoplay";
 import "swiper/css/effect-fade";
@@ -8,16 +8,28 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade, Autoplay } from "swiper/modules";
 import { Banner } from "./Banner";
 
+// Utility function to shuffle an array
+function shuffleArray(array: any) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
 function MovieBanner() {
   const { bannerMovies, loading, fetchMoviesBanner } = useMovieStore();
+  const [shuffledMovies, setShuffledMovies] = useState([]);
 
   useEffect(() => {
     fetchMoviesBanner();
   }, [fetchMoviesBanner]);
 
+  useEffect(() => {
+    if (bannerMovies && bannerMovies.length > 0) {
+      setShuffledMovies(shuffleArray([...bannerMovies]));
+    }
+  }, [bannerMovies]);
+
   if (loading) return <Loader />;
 
-  return bannerMovies ? (
+  return shuffledMovies.length > 0 ? (
     <Swiper
       slidesPerView={1}
       autoplay={{ delay: 3000 }}
@@ -25,7 +37,7 @@ function MovieBanner() {
       effect="fade"
       allowTouchMove={false}
     >
-      {bannerMovies?.map((movie) => (
+      {shuffledMovies.map((movie) => (
         <SwiperSlide key={movie.id}>
           <Banner
             id={movie.id}
