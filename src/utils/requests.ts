@@ -1,5 +1,7 @@
 export const requests = {
   fetchMovieList: `/danh-sach/phim-moi-cap-nhat`,
+  fetchMovie: `/v1/api/phim`,
+  searchMovie: `/v1/api/tim-kiem`,
 };
 
 export const TMDB_API_KEY = "82a5a8f5c061e462bc3c82fc59e48151";

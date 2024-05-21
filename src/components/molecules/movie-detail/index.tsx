@@ -1,15 +1,15 @@
-import useMovieDetailStore from "@store/movieDetailStore";
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import DetailInfo from "./DetailInfo";
-import CastList from "./CastList";
 import Loader from "@components/organisms/loader";
-import { Box, Typography } from "@mui/material";
-import Poster from "./Poster";
-import TrailerList from "./TrailerList";
-import Button from "@components/atoms/button";
-import RefMovies from "./RefMovies";
+import { Box } from "@mui/material";
+import useMovieDetailStore from "@store/movieDetailStore";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import BackgroundVideo from "./BackgroundVideo";
+import CastList from "./CastList";
+import DetailInfo from "./DetailInfo";
+import Poster from "./Poster";
+import RefMovies from "./RefMovies";
+import TrailerList from "./TrailerList";
+import WatchMovie from "./WatchMovie";
 
 function MovieDetail() {
   const { movie_id } = useParams();
@@ -51,7 +51,11 @@ function MovieDetail() {
   )
     return <Loader />;
   return (
-    <Box padding="100px" bgcolor={!movieVideos[0]?.key && "#111"}>
+    <Box
+      padding="100px"
+      bgcolor={!movieVideos[0]?.key && "#111"}
+      sx={{ textShadow: "1px 1px #333" }}
+    >
       <Box
         display="flex"
         alignItems="center"
@@ -88,24 +92,9 @@ function MovieDetail() {
         )}
       </Box>
       <Box display="flex" justifyContent="center">
-        <Button
-          sx={{
-            position: "relative",
-            bgcolor: "#ee3069",
-            borderRadius: "5px",
-            height: "60px",
-            width: "200px",
-            transition: "linear 0.1s",
-            "&:hover": { backgroundColor: "#32b674" },
-            "&.Mui-disabled": {
-              bgcolor: "#1f8653",
-            },
-          }}
-        >
-          <Typography fontSize="16px" fontWeight="600" color="white">
-            Watch Movie
-          </Typography>
-        </Button>
+        <WatchMovie
+          movieName={movieDetail.original_title || movieDetail.title}
+        />
       </Box>
       <Box mt="40px">
         <RefMovies refMovies={movieRecommendations} />

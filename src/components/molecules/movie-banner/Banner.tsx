@@ -19,7 +19,14 @@ export interface BannerProps {
 export function Banner({ title, imgSrc, description, id }: BannerProps) {
   return (
     <>
-      <Box position="absolute" color="white" top="30%" left="30px" zIndex={3}>
+      <Box
+        position="absolute"
+        color="white"
+        top="30%"
+        left="30px"
+        zIndex={3}
+        sx={{ textShadow: "1px 1px #333" }}
+      >
         <Typography fontWeight={600} fontSize={64} width="60%" lineHeight={1.1}>
           {title}
         </Typography>

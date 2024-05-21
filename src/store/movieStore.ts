@@ -1,3 +1,4 @@
+import ophimApi from "@/api/OPhim/ophimApi";
 import tmdbApi from "@/api/TMDB/TMDBApi";
 import { create } from "zustand";
 
@@ -20,6 +21,7 @@ interface MovieState {
   crimeMovies: Movie[];
   romanceMovies: Movie[];
   fantasyMovies: Movie[];
+  searchedMovie: any;
   loading: boolean;
   error: string | null;
 }
@@ -32,6 +34,7 @@ interface MovieActions {
   fetchCrimeMovies: () => Promise<void>;
   fetchRomanceMovies: () => Promise<void>;
   fetchFantasyMovies: () => Promise<void>;
+  searchMovie: (value: string) => Promise<void>;
 }
 
 // Combine state and actions into the store type
@@ -45,6 +48,7 @@ const useMovieStore = create<MovieStore>((set) => ({
   crimeMovies: [],
   romanceMovies: [],
   fantasyMovies: [],
+  searchedMovie: null,
   loading: false,
   error: null,
   fetchMoviesBanner: async () => {
@@ -106,6 +110,25 @@ const useMovieStore = create<MovieStore>((set) => ({
     try {
       const response = await tmdbApi.getFantasyMovies();
       set({ fantasyMovies: response.data.results, loading: false });
+    } catch (error) {
+      set({ error: (error as Error).message, loading: false });
+    }
+  },
+  searchMovie: async (value: string) => {
+    set({ loading: true, error: null });
+    try {
+      const searchedResult = await ophimApi.searchMovie({ keyword: value });
+      const slug = searchedResult.data.data.items[0].slug;
+      try {
+        const embededLink = await ophimApi.getMovie(slug);
+        set({
+          searchedMovie:
+            embededLink.data.data.item.episodes[0].server_data[0].link_embed,
+          loading: false,
+        });
+      } catch (error) {
+        set({ error: (error as Error).message, loading: false });
+      }
     } catch (error) {
       set({ error: (error as Error).message, loading: false });
     }

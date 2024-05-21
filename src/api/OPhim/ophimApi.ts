@@ -6,6 +6,14 @@ const ophimApi = {
     const url = requests.fetchMovieList;
     return axiosOphim.get(url);
   },
+  getMovie(slug: string) {
+    const url = requests.fetchMovie + `/${slug}`;
+    return axiosOphim.get(url);
+  },
+  searchMovie(params: unknown) {
+    const url = requests.searchMovie;
+    return axiosOphim.get(url, { params });
+  },
 };
 
 export default ophimApi;
