@@ -21,7 +21,7 @@ interface MovieState {
   crimeMovies: Movie[];
   romanceMovies: Movie[];
   fantasyMovies: Movie[];
-  searchedMovie: any;
+  searchedMovie: null;
   loading: boolean;
   error: string | null;
 }
@@ -35,6 +35,7 @@ interface MovieActions {
   fetchRomanceMovies: () => Promise<void>;
   fetchFantasyMovies: () => Promise<void>;
   searchMovie: (value: string) => Promise<void>;
+  clearData: () => void;
 }
 
 // Combine state and actions into the store type
@@ -51,6 +52,19 @@ const useMovieStore = create<MovieStore>((set) => ({
   searchedMovie: null,
   loading: false,
   error: null,
+
+  clearData: () => {
+    set({
+      bannerMovies: [],
+      actionMovies: [],
+      animationMovies: [],
+      horrorMovies: [],
+      crimeMovies: [],
+      romanceMovies: [],
+      fantasyMovies: [],
+      searchedMovie: null,
+    });
+  },
   fetchMoviesBanner: async () => {
     set({ loading: true, error: null });
     try {

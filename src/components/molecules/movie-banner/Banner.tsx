@@ -7,7 +7,8 @@ import Button from "@components/atoms/button";
 import { Box, Typography } from "@mui/material";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useMovieDetailStore from "@store/movieDetailStore";
 
 export interface BannerProps {
   id: number;
@@ -17,6 +18,13 @@ export interface BannerProps {
 }
 
 export function Banner({ title, imgSrc, description, id }: BannerProps) {
+  const navigate = useNavigate();
+  const { playMovieImmediately } = useMovieDetailStore();
+
+  const handlePlayVideo = () => {
+    playMovieImmediately();
+    navigate(`/movie/${id}`, { state: { playMovie: true } });
+  };
   return (
     <>
       <Box
@@ -31,31 +39,30 @@ export function Banner({ title, imgSrc, description, id }: BannerProps) {
           {title}
         </Typography>
         <Box display="flex" alignItems="center" gap="10px" mt="16px" mb="20px">
-          <Link to={`/movie/${id}`}>
-            <Button
-              sx={{
-                color: "white",
-                bgcolor: "rgba(51,51,51,0.5)",
-                borderRadius: "5px",
-                height: "40px",
-                padding: "8px 36px",
-                width: "fit-content",
-                transition: "transform 100ms",
-                display: "flex",
-                alignItems: "center",
-                gap: "4px",
-                "&:hover": {
-                  backgroundColor: "#e11d48",
-                  transform: "translate(-2px) scale(1.1)",
-                },
-              }}
-            >
-              <PlayCircleOutlineIcon />
-              <Typography fontSize={18} fontWeight={500}>
-                Play
-              </Typography>
-            </Button>
-          </Link>
+          <Button
+            onClick={handlePlayVideo}
+            sx={{
+              color: "white",
+              bgcolor: "rgba(51,51,51,0.5)",
+              borderRadius: "5px",
+              height: "40px",
+              padding: "8px 36px",
+              width: "fit-content",
+              transition: "transform 100ms",
+              display: "flex",
+              alignItems: "center",
+              gap: "4px",
+              "&:hover": {
+                backgroundColor: "#e11d48",
+                transform: "translate(-2px) scale(1.1)",
+              },
+            }}
+          >
+            <PlayCircleOutlineIcon />
+            <Typography fontSize={18} fontWeight={500}>
+              Play
+            </Typography>
+          </Button>
           <Link to={`/movie/${id}`}>
             <Button
               sx={{

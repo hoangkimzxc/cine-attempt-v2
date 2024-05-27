@@ -4,7 +4,6 @@ import { MovieCredit } from "@store/movieDetailStore";
 import { Link } from "react-router-dom";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
-
 interface CastListProps {
   credits: MovieCredit[];
 }
@@ -23,7 +22,7 @@ function CastList({ credits }: CastListProps) {
       <Swiper slidesPerView={5.5}>
         {credits?.map((credit) => (
           <SwiperSlide key={credit.cast_id}>
-            <Link to="#">
+            <Link to="">
               <Cast
                 name={credit.name || credit.original_name}
                 imgSrc={credit.profile_path}

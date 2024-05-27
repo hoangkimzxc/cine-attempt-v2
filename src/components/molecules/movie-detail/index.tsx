@@ -26,6 +26,7 @@ function MovieDetail() {
     fetchMovieCredits,
     fetchMovieRecommendations,
     fetchMovieReviews,
+    clearMovieDetailData,
   } = useMovieDetailStore();
   useEffect(() => {
     fetchMovieDetail(movie_id);
@@ -33,6 +34,9 @@ function MovieDetail() {
     fetchMovieCredits(movie_id);
     fetchMovieRecommendations(movie_id);
     fetchMovieReviews(movie_id);
+    return () => {
+      clearMovieDetailData();
+    };
   }, [
     fetchMovieRecommendations,
     fetchMovieReviews,

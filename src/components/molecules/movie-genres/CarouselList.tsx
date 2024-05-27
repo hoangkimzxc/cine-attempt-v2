@@ -1,12 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import { Movie } from "@store/movieStore";
-import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CarouselItem from "./CarouselItem";
-import { Link } from "react-router-dom";
 
 interface CarouselListProps {
   listTitle: string;
@@ -14,19 +13,6 @@ interface CarouselListProps {
 }
 
 function CarouselList({ movies, listTitle }: CarouselListProps) {
-  const swiperRef = useRef(null);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      if (swiperRef.current) {
-        const randomDirection = Math.random() < 0.5 ? "slideNext" : "slidePrev";
-        swiperRef.current.swiper[randomDirection]();
-      }
-    }, Math.random() * 2000 + 2000); // Random interval between 1-4 seconds
-
-    return () => clearInterval(intervalId);
-  }, []);
-
   return (
     <Box display="flex" flexDirection="column" gap="12px">
       <Box display="flex" gap="6px" alignItems="center">
@@ -39,7 +25,6 @@ function CarouselList({ movies, listTitle }: CarouselListProps) {
       </Box>
       <Box>
         <Swiper
-          ref={swiperRef}
           modules={[Navigation]}
           spaceBetween={4}
           slidesPerView={6.5}

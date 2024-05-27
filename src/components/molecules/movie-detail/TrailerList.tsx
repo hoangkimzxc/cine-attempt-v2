@@ -1,6 +1,5 @@
 import { Box, Typography } from "@mui/material";
 import { MovieVideo } from "@store/movieDetailStore";
-import React from "react";
 import ReactPlayer from "react-player";
 
 interface TrailerListProps {

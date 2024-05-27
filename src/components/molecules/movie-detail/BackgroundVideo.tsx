@@ -24,7 +24,13 @@ function BackgroundVideo({ backgroundVideos }: BackgroundVideoListProps) {
         loop={true}
         width="100%"
         height="100%"
-        style={{ position: "fixed", zIndex: "-1", top: 0, left: 0 }}
+        style={{
+          position: "fixed",
+          zIndex: "-1",
+          top: 0,
+          left: 0,
+          marginTop: "-60px",
+        }}
       />
     </>
   );

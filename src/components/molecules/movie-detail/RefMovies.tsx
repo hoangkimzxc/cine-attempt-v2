@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
+import { Navigation, Mousewheel } from "swiper/modules";
 import { renderImage } from "@/utils/helpers";
 
 interface RefMoviesProps {
@@ -24,7 +24,13 @@ function RefMovies({ refMovies }: RefMoviesProps) {
         Recommendations:
       </Typography>
       <Box>
-        <Swiper slidesPerView={5.5} modules={[Navigation]} navigation>
+        <Swiper
+          direction={"horizontal"}
+          mousewheel={true}
+          modules={[Mousewheel, Navigation]}
+          slidesPerView={5.5}
+          navigation
+        >
           {refMovies?.map((video) => (
             <SwiperSlide key={video.id}>
               <RefMovie

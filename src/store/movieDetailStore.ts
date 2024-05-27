@@ -30,6 +30,7 @@ interface MovieDetailState {
   movieVideos: MovieVideo[];
   movieRecommendations: Movie[];
   movieReviews: any[];
+  playMovie: boolean;
   loading: boolean;
   error: string | null;
 }
@@ -40,6 +41,8 @@ interface MovieDetailActions {
   fetchMovieVideos: (movie_id: unknown) => Promise<void>;
   fetchMovieRecommendations: (movie_id: unknown) => Promise<void>;
   fetchMovieReviews: (movie_id: unknown) => Promise<void>;
+  playMovieImmediately: () => void;
+  clearMovieDetailData: () => void;
 }
 
 type MovieDetailStore = MovieDetailState & MovieDetailActions;
@@ -50,8 +53,24 @@ const useMovieDetailStore = create<MovieDetailStore>((set) => ({
   movieVideos: [],
   movieRecommendations: [],
   movieReviews: [],
+  playMovie: false,
   loading: false,
   error: null,
+  playMovieImmediately: () => {
+    set({
+      playMovie: true,
+    });
+  },
+  clearMovieDetailData: () => {
+    set({
+      movieDetail: null,
+      movieCredits: [],
+      movieVideos: [],
+      movieRecommendations: [],
+      movieReviews: [],
+      playMovie: false,
+    });
+  },
   fetchMovieDetail: async (movie_id: unknown) => {
     set({ loading: true, error: null });
     try {
