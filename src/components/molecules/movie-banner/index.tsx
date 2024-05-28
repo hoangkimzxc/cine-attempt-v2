@@ -6,7 +6,7 @@ import "swiper/css/autoplay";
 import "swiper/css/effect-fade";
 import { Autoplay, EffectFade } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Banner } from "./Banner";
+import Banner from "./Banner";
 
 // Utility function to shuffle an array
 function shuffleArray(array: any) {

@@ -1,4 +1,5 @@
 import { MovieVideo } from "@store/movieDetailStore";
+import React from "react";
 import ReactPlayer from "react-player";
 
 interface BackgroundVideoListProps {
@@ -36,4 +37,4 @@ function BackgroundVideo({ backgroundVideos }: BackgroundVideoListProps) {
   );
 }
 
-export default BackgroundVideo;
+export default React.memo(BackgroundVideo);

@@ -1,6 +1,7 @@
 import { renderImage } from "@/utils/helpers";
 import { Box, Typography } from "@mui/material";
 import { Movie } from "@store/movieStore";
+import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Link } from "react-router-dom";
@@ -41,8 +42,7 @@ function RefMovies({ refMovies }: RefMoviesProps) {
     </Box>
   );
 }
-
-export default RefMovies;
+export default React.memo(RefMovies);
 
 function RefMovie({ name, imgSrc, id }: RefMovieProps) {
   return (

@@ -6,6 +6,7 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CarouselItem from "./CarouselItem";
+import React from "react";
 
 interface CarouselListProps {
   listTitle: string;
@@ -48,4 +49,4 @@ function CarouselList({ movies, listTitle }: CarouselListProps) {
   );
 }
 
-export default CarouselList;
+export default React.memo(CarouselList);

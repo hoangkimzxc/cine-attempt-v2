@@ -6,7 +6,7 @@ import {
   DialogTitle,
 } from "@mui/material";
 import useMovieStore from "@store/movieStore";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 interface WatchMovieProps {
@@ -80,5 +80,4 @@ function WatchMovie({ movieName }: WatchMovieProps) {
     </>
   );
 }
-
-export default WatchMovie;
+export default React.memo(WatchMovie);

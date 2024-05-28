@@ -36,5 +36,4 @@ function DetailInfo({ title, genres, description, imdb }: DetailInfoProps) {
     </Box>
   );
 }
-
-export default DetailInfo;
+export default React.memo(DetailInfo);

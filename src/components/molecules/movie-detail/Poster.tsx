@@ -33,5 +33,4 @@ function Poster({ imgSrc }: PosterProps) {
     </Box>
   );
 }
-
-export default Poster;
+export default React.memo(Poster);

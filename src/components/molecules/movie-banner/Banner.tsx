@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useMovieDetailStore from "@store/movieDetailStore";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import React from "react";
 
 export interface BannerProps {
   id: number;
@@ -19,7 +20,7 @@ export interface BannerProps {
   description: string;
 }
 
-export function Banner({ title, imgSrc, description, id }: BannerProps) {
+function Banner({ title, imgSrc, description, id }: BannerProps) {
   const navigate = useNavigate();
   const { playMovieImmediately } = useMovieDetailStore();
 
@@ -125,3 +126,5 @@ export function Banner({ title, imgSrc, description, id }: BannerProps) {
     </>
   );
 }
+
+export default React.memo(Banner);

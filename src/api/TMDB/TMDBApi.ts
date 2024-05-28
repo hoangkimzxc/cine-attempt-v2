@@ -6,28 +6,28 @@ const tmdbApi = {
     const url = tmdb_requests.fetchTrending;
     return axiosTMDB.get(url);
   },
-  getActionMovies() {
-    const url = tmdb_requests.fetchActionMovies;
+  getActionMovies(page: number = 1) {
+    const url = tmdb_requests.fetchActionMovies + `&page=${page}`;
     return axiosTMDB.get(url);
   },
-  getAnimationMovies() {
-    const url = tmdb_requests.fetchAnimationMovies;
+  getAnimationMovies(page: number = 1) {
+    const url = tmdb_requests.fetchAnimationMovies + `&page=${page}`;
     return axiosTMDB.get(url);
   },
-  getHorrorMovies() {
-    const url = tmdb_requests.fetchHorrorMovies;
+  getHorrorMovies(page: number = 1) {
+    const url = tmdb_requests.fetchHorrorMovies + `&page=${page}`;
     return axiosTMDB.get(url);
   },
-  getCrimeMovies() {
-    const url = tmdb_requests.fetchCrimeMovies;
+  getCrimeMovies(page: number = 1) {
+    const url = tmdb_requests.fetchCrimeMovies + `&page=${page}`;
     return axiosTMDB.get(url);
   },
-  getRomanceMovies() {
-    const url = tmdb_requests.fetchRomanceMovies;
+  getRomanceMovies(page: number = 1) {
+    const url = tmdb_requests.fetchRomanceMovies + `&page=${page}`;
     return axiosTMDB.get(url);
   },
-  getFantasyMovies() {
-    const url = tmdb_requests.fetchFantasyMovies;
+  getFantasyMovies(page: number = 1) {
+    const url = tmdb_requests.fetchFantasyMovies + `&page=${page}`;
     return axiosTMDB.get(url);
   },
   getTVBanner() {

@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { MovieVideo } from "@store/movieDetailStore";
+import React from "react";
 import ReactPlayer from "react-player";
 
 interface TrailerListProps {
@@ -46,4 +47,4 @@ function TrailerList({ trailerVideos }: TrailerListProps) {
   );
 }
 
-export default TrailerList;
+export default React.memo(TrailerList);

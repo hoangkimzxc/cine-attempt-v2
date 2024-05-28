@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import React from "react";
 
 interface CastListProps {
   credits: MovieCredit[];
@@ -37,8 +38,7 @@ function CastList({ credits }: CastListProps) {
     </>
   );
 }
-
-export default CastList;
+export default React.memo(CastList);
 
 function Cast({ name, imgSrc }: CastProps) {
   return (

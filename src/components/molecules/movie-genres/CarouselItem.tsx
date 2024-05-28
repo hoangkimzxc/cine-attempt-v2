@@ -1,5 +1,6 @@
 import { renderImage, truncateText } from "@/utils/helpers";
 import { Box, Typography } from "@mui/material";
+import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
@@ -11,7 +12,7 @@ interface CarouselItemProps {
 function CarouselItem({ title, imgSrc }: CarouselItemProps) {
   return (
     <Box
-      padding="12px"
+      padding="16px"
       display="flex"
       flexDirection="column"
       gap="8px"
@@ -57,4 +58,4 @@ function CarouselItem({ title, imgSrc }: CarouselItemProps) {
   );
 }
 
-export default CarouselItem;
+export default React.memo(CarouselItem);
