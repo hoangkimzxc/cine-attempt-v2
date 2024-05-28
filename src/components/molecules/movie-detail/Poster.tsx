@@ -1,5 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 interface PosterProps {
   imgSrc: string;
@@ -17,8 +19,9 @@ function Poster({ imgSrc }: PosterProps) {
         width: "100%",
       }}
     >
-      <img
+      <LazyLoadImage
         src={`https://image.tmdb.org/t/p/original/${imgSrc}`}
+        effect="blur"
         style={{
           width: "100%",
           height: "100%",
