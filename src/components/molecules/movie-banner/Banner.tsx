@@ -9,6 +9,8 @@ import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { Link, useNavigate } from "react-router-dom";
 import useMovieDetailStore from "@store/movieDetailStore";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 export interface BannerProps {
   id: number;
@@ -99,11 +101,15 @@ export function Banner({ title, imgSrc, description, id }: BannerProps) {
         </Typography>
       </Box>
       <Box width="100wh" height="100vh">
-        <img
+        <LazyLoadImage
           src={renderImage(imgSrc)}
+          effect="blur"
           width="100%"
           height="100%"
-          style={{ objectFit: "cover", backgroundPosition: "center" }}
+          style={{
+            objectFit: "cover",
+            backgroundPosition: "center",
+          }}
         />
       </Box>
       <Box

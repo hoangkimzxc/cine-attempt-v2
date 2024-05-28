@@ -1,6 +1,7 @@
 import { renderImage, truncateText } from "@/utils/helpers";
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 interface CarouselItemProps {
   title: string;
@@ -10,7 +11,7 @@ interface CarouselItemProps {
 function CarouselItem({ title, imgSrc }: CarouselItemProps) {
   return (
     <Box
-      padding="8px"
+      padding="12px"
       display="flex"
       flexDirection="column"
       gap="8px"
@@ -28,7 +29,7 @@ function CarouselItem({ title, imgSrc }: CarouselItemProps) {
         sx={{
           borderRadius: "10px",
           overflow: "hidden",
-          height: "135px",
+          height: "165px",
           boxShadow:
             "0 10px 15px -3px rgba(244, 63, 94, 0.5), 0 4px 6px -2px rgba(244, 63, 94, 0.5)",
           position: "relative",
@@ -38,17 +39,14 @@ function CarouselItem({ title, imgSrc }: CarouselItemProps) {
           },
         }}
       >
-        <img
+        <LazyLoadImage
           src={renderImage(imgSrc)}
+          effect="blur"
           style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
             width: "100%",
             height: "100%",
             objectFit: "cover",
             backgroundPosition: "center",
-            borderRadius: "10px",
           }}
         />
       </Box>

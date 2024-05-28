@@ -26,8 +26,7 @@ function CarouselList({ movies, listTitle }: CarouselListProps) {
       <Box>
         <Swiper
           modules={[Navigation]}
-          spaceBetween={4}
-          slidesPerView={6.5}
+          slidesPerView={4.5}
           navigation
           loop={false}
         >

@@ -1,9 +1,12 @@
 import { renderImage } from "@/utils/helpers";
 import { Box, Typography } from "@mui/material";
 import { MovieCredit } from "@store/movieDetailStore";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
+import "react-lazy-load-image-component/src/effects/blur.css";
+
 interface CastListProps {
   credits: MovieCredit[];
 }
@@ -69,8 +72,9 @@ function Cast({ name, imgSrc }: CastProps) {
           },
         }}
       >
-        <img
+        <LazyLoadImage
           src={renderImage(imgSrc)}
+          effect="blur"
           style={{
             width: "100%",
             height: "100%",

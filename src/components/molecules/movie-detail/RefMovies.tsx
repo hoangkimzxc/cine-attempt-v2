@@ -1,11 +1,13 @@
+import { renderImage } from "@/utils/helpers";
 import { Box, Typography } from "@mui/material";
 import { Movie } from "@store/movieStore";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 import { Link } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Navigation, Mousewheel } from "swiper/modules";
-import { renderImage } from "@/utils/helpers";
+import { Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 interface RefMoviesProps {
   refMovies: Movie[];
@@ -24,13 +26,7 @@ function RefMovies({ refMovies }: RefMoviesProps) {
         Recommendations:
       </Typography>
       <Box>
-        <Swiper
-          direction={"horizontal"}
-          mousewheel={true}
-          modules={[Mousewheel, Navigation]}
-          slidesPerView={5.5}
-          navigation
-        >
+        <Swiper modules={[Navigation]} slidesPerView={5.5} navigation>
           {refMovies?.map((video) => (
             <SwiperSlide key={video.id}>
               <RefMovie
@@ -70,7 +66,7 @@ function RefMovie({ name, imgSrc, id }: RefMovieProps) {
           sx={{
             borderRadius: "10px",
             overflow: "hidden",
-            height: "350px",
+            height: "320px",
             width: "100%",
             boxShadow:
               "0 10px 15px -3px rgba(6, 182, 212, 0.5), 0 4px 6px -2px rgba(6, 182, 212, 0.5)",
@@ -80,8 +76,9 @@ function RefMovie({ name, imgSrc, id }: RefMovieProps) {
             },
           }}
         >
-          <img
+          <LazyLoadImage
             src={renderImage(imgSrc)}
+            effect="blur"
             style={{
               width: "100%",
               height: "100%",
